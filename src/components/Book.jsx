@@ -54,11 +54,50 @@ const Book = () => {
   ];
 
   return (
-    <HTMLFlipBook width={300} height={500}>
-      <div className="demoPage">Page 1</div>
-      <div className="demoPage">Page 2</div>
-      <div className="demoPage">Page 3</div>
-      <div className="demoPage">Page 4</div>
+    <HTMLFlipBook
+      width={300}
+      height={500}
+      minWidth={300}
+      minHeight={500}
+      maxWidth={500}
+      maxHeight={600}
+      showCover={true}
+      maxShadowOpacity={0.5}
+      mobileScrollSupport={true}
+      size="stretch">
+      <div className="page" style={{ background: "transparent" }}>
+        <div className="page-content cover">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg"
+            alt="Pokémon Logo"
+            className="pokemon-logo"
+          />
+        </div>
+      </div>
+      {pokemonData.map((pokemon) => (
+        <div className="page" key={pokemon.id}>
+          <div className="page-content">
+            <div className="pokemon-container">
+              <img
+                src={`https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/${pokemon.id}.png`}
+                alt={pokemon.name}
+              />
+              <div className="pokemon-info">
+                <h2 className="pokemon-name">{pokemon.name}</h2>
+                <p className="pokemon-number">#{pokemon.id}</p>
+                {pokemon.types.map((type) => (
+                  <span
+                    key={type}
+                    className={`pokemon-type type-${type.toLowerCase()}`}>
+                    {type}
+                  </span>
+                ))}
+              </div>
+              <p className="pokemon-description">{pokemon.description}</p>
+            </div>
+          </div>
+        </div>
+      ))}
     </HTMLFlipBook>
   );
 };
